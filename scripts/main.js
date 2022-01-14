@@ -51,20 +51,23 @@ function exponent(num1, num2) {
   return num1 ** num2;
 }
 
+
+
+
 // BUTTON FUNCTIONALITY \\
 
 //check to see if calculation is equal to 3
 function checkCalculation() {
-  console.log(`Calculation length is: ${calculation.length}`);
+  // console.log(`Calculation length is: ${calculation.length}`);
   if (calculation.length === 3) {
     calculate();
   };
 };
 
 function pushNumber(num) {
-  console.log(num)
-  console.log("Num target value is " + num.target.value)
-  console.log("Calculator display value is " + typeof(calculatorDisplay.value))
+  // console.log(num)
+  // console.log("Num target value is " + num.target.value)
+  // console.log("Calculator display value is " + typeof(calculatorDisplay.value))
   if (calculatorDisplay.value === "0") { //checks if 0 is displayed, if so, display the first value and replace 0. TRIPLE EQUALS in case undefined or NaN were to ever come up to evaluate as falsy therefore equivalent.
     calculatorDisplay.value = num.target.value;
   } else { //if not 0, add to the current number
@@ -73,40 +76,40 @@ function pushNumber(num) {
 };
 
 function pushOperator(op) {
-  console.log(numberDisplayed);
-  console.log(op.target.value);
+  // console.log(numberDisplayed);
+  // console.log(op.target.value);
 	const operator = op.target.value; //finds the operator
   numberDisplayed = Number(calculatorDisplay.value); //sets numberDisplayed now, so that it doesn't set to the same number all the time within the next function
-  console.log(calculation)
+  // console.log(calculation)
   calculation.push(numberDisplayed)
-  console.log(calculation)
+  // console.log(calculation)
   calculation.push(operator)
-  console.log(calculation)
+  // console.log(calculation)
 	calculatorDisplay.value = ""; //sets value to nothing, as a normal calculator would after operator is pressed
-  console.log("got past here.")
+  // console.log("got past here.")
   checkCalculation()
 };
 
 function pushPercent(p) {
   const operator = "%"; // for some reason operator.target.value returns the string "percent" rather than "%"
   numberDisplayed = Number(calculatorDisplay.value);
-  console.log(calculation)
+  // console.log(calculation)
   calculation.push(numberDisplayed);
-  console.log(calculation)
+  // console.log(calculation)
   calculation.push(operator);
-  console.log(calculation)
-  console.log(operator)
-  console.log(calculation);
+  // console.log(calculation)
+  // console.log(operator)
+  // console.log(calculation);
   calculatorDisplay.value = "";
   checkCalculation();
 };
 
 function pushEquals() {
   if (calculation.length === 2) {
-    console.log(calculation)
+    // console.log(calculation)
     numberDisplayed = Number(calculatorDisplay.value);
     calculation.push(numberDisplayed);
-    console.log("NOW THIS IS WHEN EQUALS WAS PUSHED: " + calculation)
+    // console.log("NOW THIS IS WHEN EQUALS WAS PUSHED: " + calculation)
     checkCalculation();
   };
 }
@@ -118,7 +121,7 @@ function pushClear() {
 }
 
 function calculate() {
-  console.log("I actually got here, yaknow")
+  // console.log("I actually got here, yaknow")
   var num1 = Number(calculation[0]);
   const operatorEntered = calculation[1];
   var num2 = Number(calculation[2]);
@@ -134,9 +137,9 @@ function calculate() {
   const operators = Object.keys(operatorFunctions);
   for (let i = 0; i < operators.length; i++) {
     let currentOperator = operators[i];
-    console.log(`yep i got here. Calculation: ${calculation} Operators: ${operators} Operator iteration number: ${i} Operator being tested: ${currentOperator} Actual operator: ${operatorEntered}`)
+    // console.log(`yep i got here. Calculation: ${calculation} Operators: ${operators} Operator iteration number: ${i} Operator being tested: ${currentOperator} Actual operator: ${operatorEntered}`)
     if (operatorEntered === currentOperator) {
-      console.log(`What ya lookin foh is ${operators[i]}`)
+      // console.log(`What ya lookin foh is ${operators[i]}`)
       result = operatorFunctions[currentOperator];
       break;
     };
@@ -144,24 +147,6 @@ function calculate() {
   calculatorDisplay.value = result;
   calculation = [];
 };
-
-  // if (operator === '+') { //only adding comments to one as these are all the same
-  //   num2 = Number(calculatorDisplay.value); //num2 is defined here only so that numberDisplayed and num2 aren't mixed. Converted to a number because for some reason it starts as a string.
-  //   let result = numberDisplayed + num2; //defines result here
-  //   calculatorDisplay.value = result; //display result
-  // } else if (operator === '-') {
-  //   num2 = Number(calculatorDisplay.value);
-  //   let result = numberDisplayed - num2;
-  //   calculatorDisplay.value = result;
-  // } else if (operator === '*') {
-  //   num2 = Number(calculatorDisplay.value);
-  //   let result = numberDisplayed * num2;
-  //   calculatorDisplay.value = result;
-  // } else if (operator === '/') {
-  //   num2 = Number(calculatorDisplay.value);
-  //   let result = numberDisplayed / num2;
-  //   calculatorDisplay.value = result;
-  // };
 
 
 
