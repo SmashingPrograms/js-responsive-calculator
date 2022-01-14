@@ -8,8 +8,7 @@
 /// VARIABLES \\\
 var calculation = [];
 let operator;
-let numberDisplayed = 0; //numberDisplayed is 0 by default, so that someone could just press + after the 0 is already there, to add to 0, for example
-let num2;
+var numberDisplayed = 0; //numberDisplayed is 0 by default, so that someone could just press + after the 0 is already there, to add to 0, for example
 var result; // result needs to be GLOBAL so that it can be set to 0 when needed anywhere in the program
 
 //going ahead and defining all my main selectors here
@@ -79,10 +78,7 @@ function pushNumber(num) {
   };
 };
 
-function pushOperator(op) {
-  // console.log(numberDisplayed);
-  // console.log(op.target.value);
-	const operator = op.target.value; //finds the operator
+function pushNonNumber(operator) {
   numberDisplayed = Number(calculatorDisplay.value); //sets numberDisplayed now, so that it doesn't set to the same number all the time within the next function
   // console.log(calculation)
   if (result !== numberDisplayed && numberDisplayed !== 0) {
@@ -94,22 +90,17 @@ function pushOperator(op) {
   console.log(calculation);
   calculatorDisplay.value = ""; //sets value to nothing, as a normal calculator would after operator is pressed
   // console.log("got past here.")
-  checkCalculation()
+  checkCalculation();
+}
+
+function pushOperator(op) {
+	const operator = op.target.value; //finds the operator
+  pushNonNumber(operator);
 };
 
 function pushPercent(p) {
-  const operator = "%"; // for some reason operator.target.value returns the string "percent" rather than "%"
-  numberDisplayed = Number(calculatorDisplay.value);
-  // console.log(calculation)
-  calculation.push(numberDisplayed);
-  checkCalculation()
-  // console.log(calculation)
-  calculation.push(operator);
-  // console.log(calculation)
-  // console.log(operator)
-  // console.log(calculation);
-  calculatorDisplay.value = "";
-  checkCalculation();
+  const operator = "%"; // for some reason operator.target.value returns p
+  pushNonNumber(operator);
 };
 
 function pushEquals() {
