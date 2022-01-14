@@ -3,6 +3,7 @@
 // Feature: if divide by 0, show "E" and allow no buttons to be pressed for 3 seconds
 // What if 6 + 2 = 8 -> user then enters 4???
 
+// 1 + 1 + 3
 
 /// VARIABLES \\\
 var calculation = [];
@@ -60,8 +61,11 @@ function exponent(num1, num2) {
 function checkCalculation() {
   // console.log(`Calculation length is: ${calculation.length}`);
   if (calculation.length === 3) {
+    console.log(`${calculation.length} yeppers ARON RA`)
     calculate();
-  };
+  } else if (calculation.length > 3) {
+    console.log("ERROR!!!!!! IT'S HIGHER THAN 3 IN THE ARRAY!!!!!");
+  }
 };
 
 function pushNumber(num) {
@@ -81,11 +85,14 @@ function pushOperator(op) {
 	const operator = op.target.value; //finds the operator
   numberDisplayed = Number(calculatorDisplay.value); //sets numberDisplayed now, so that it doesn't set to the same number all the time within the next function
   // console.log(calculation)
-  calculation.push(numberDisplayed)
+  if (result !== numberDisplayed && numberDisplayed !== 0) {
+    calculation.push(numberDisplayed) // [1]
+    checkCalculation()
+  };
   // console.log(calculation)
-  calculation.push(operator)
-  // console.log(calculation)
-	calculatorDisplay.value = ""; //sets value to nothing, as a normal calculator would after operator is pressed
+  calculation.push(operator) // [1, '+']
+  console.log(calculation);
+  calculatorDisplay.value = ""; //sets value to nothing, as a normal calculator would after operator is pressed
   // console.log("got past here.")
   checkCalculation()
 };
@@ -95,6 +102,7 @@ function pushPercent(p) {
   numberDisplayed = Number(calculatorDisplay.value);
   // console.log(calculation)
   calculation.push(numberDisplayed);
+  checkCalculation()
   // console.log(calculation)
   calculation.push(operator);
   // console.log(calculation)
@@ -121,7 +129,7 @@ function pushClear() {
 }
 
 function calculate() {
-  // console.log("I actually got here, yaknow")
+  console.log("I actually got here, yaknow")
   var num1 = Number(calculation[0]);
   const operatorEntered = calculation[1];
   var num2 = Number(calculation[2]);
@@ -137,15 +145,17 @@ function calculate() {
   const operators = Object.keys(operatorFunctions);
   for (let i = 0; i < operators.length; i++) {
     let currentOperator = operators[i];
-    // console.log(`yep i got here. Calculation: ${calculation} Operators: ${operators} Operator iteration number: ${i} Operator being tested: ${currentOperator} Actual operator: ${operatorEntered}`)
+    console.log(`yep i got here. Calculation: ${calculation} Operators: ${operators} Operator iteration number: ${i} Operator being tested: ${currentOperator} Actual operator: ${operatorEntered}`)
     if (operatorEntered === currentOperator) {
       // console.log(`What ya lookin foh is ${operators[i]}`)
       result = operatorFunctions[currentOperator];
       break;
     };
   };
+  // console.log("I got to the near end!")
   calculatorDisplay.value = result;
-  calculation = [];
+  calculation = [result];
+  console.log("I got to the end!")
 };
 
 
