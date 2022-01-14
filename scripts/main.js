@@ -1,5 +1,5 @@
 // BUGS \\
-// 1 + 2 + 3 = 5. WRONG! That ain't gud.
+// 0 at the beginning DOES NOT WORK, make it work! :(
 // Feature: if divide by 0, show "E" and allow no buttons to be pressed for 3 seconds
 // What if 6 + 2 = 8 -> user then enters 4???
 
@@ -27,29 +27,25 @@ const clearButton = document.querySelector('.clear');
 
 // MATH FUNCTIONS \\
 
-function add(num1, num2) {
-  return num1 + num2;
+const operators = {
+  "+": function (num1, num2) {
+         return num1 + num2;
+       },
+  "-": function (num1, num2) {
+         return num1 - num2;
+       },
+  "*": function (num1, num2) {
+         return num1 * num2;
+       },
+  "/": function (num1, num2) {
+         return num1 / num2;
+       },
+  "%": function (num1, num2) {
+         return num1 % num2;
+       },
 };
 
-function subtract(num1, num2) {
-  return num1 - num2;
-};
-
-function multiply(num1, num2) {
-  return num1 * num2;
-};
-
-function divide(num1, num2) {
-  return num1 / num2;
-};
-
-function modulo(num1, num2) {
-  return num1 % num2;
-};
-
-function exponent(num1, num2) {
-  return num1 ** num2;
-}
+// console.log(operators["%"](1, 3)); // to show what it does :)
 
 
 
@@ -78,7 +74,7 @@ function pushNumber(num) {
   };
 };
 
-function pushNonNumber(operator) {
+function pushNonNumber(operator) { //THIS FUNCTION was made so that multiple operator functions could be made the same way
   numberDisplayed = Number(calculatorDisplay.value); //sets numberDisplayed now, so that it doesn't set to the same number all the time within the next function
   // console.log(calculation)
   if (result !== numberDisplayed && numberDisplayed !== 0) {
@@ -121,29 +117,10 @@ function pushClear() {
 
 function calculate() {
   console.log("I actually got here, yaknow")
-  var num1 = Number(calculation[0]);
+  let num1 = Number(calculation[0]);
   const operatorEntered = calculation[1];
-  var num2 = Number(calculation[2]);
-  const operatorFunctions = {
-    "+": add(num1, num2),
-    "-": subtract(num1, num2),
-    "*": multiply(num1, num2),
-    "/": divide(num1, num2),
-    "%": modulo(num1, num2)
-  };
-  // console.log(`This is multiplication: ${operators["*"]}`)
-  // console.log(operators.length)
-  const operators = Object.keys(operatorFunctions);
-  for (let i = 0; i < operators.length; i++) {
-    let currentOperator = operators[i];
-    console.log(`yep i got here. Calculation: ${calculation} Operators: ${operators} Operator iteration number: ${i} Operator being tested: ${currentOperator} Actual operator: ${operatorEntered}`)
-    if (operatorEntered === currentOperator) {
-      // console.log(`What ya lookin foh is ${operators[i]}`)
-      result = operatorFunctions[currentOperator];
-      break;
-    };
-  };
-  // console.log("I got to the near end!")
+  let num2 = Number(calculation[2]);
+  result = operators[operatorEntered](num1, num2);
   calculatorDisplay.value = result;
   calculation = [result];
   console.log("I got to the end!")
